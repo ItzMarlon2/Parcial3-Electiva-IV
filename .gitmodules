@@ -1,0 +1,12 @@
+[submodule "get"]
+	path = get
+	url = https://github.com/ItzMarlon2/get-ms
+[submodule "post"]
+	path = post
+	url = https://github.com/ItzMarlon2/post-ms
+[submodule "patch"]
+	path = patch
+	url = https://github.com/ItzMarlon2/patch-ms
+[submodule "delete"]
+	path = delete
+	url = https://github.com/ItzMarlon2/delete-ms
