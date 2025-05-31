@@ -3,35 +3,37 @@ kind: Ingress
 metadata:
   name: products-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1$2
 spec:
+  ingressClassName: nginx
   rules:
     - host: products.local
       http:
         paths:
-          - path: /get/products
-            pathType: Prefix
+          - path: /get/(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: get-products-ms
                 port:
                   number: 80
-          - path: /post/products
-            pathType: Prefix
+          - path: /post/(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: post-products-ms
                 port:
                   number: 80
-          - path: /patch/products
-            pathType: Prefix
+          - path: /patch/(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: patch-products-ms
                 port:
                   number: 80
-          - path: /delete/products
-            pathType: Prefix
+          - path: /delete/(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: delete-products-ms
