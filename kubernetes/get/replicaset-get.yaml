@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: get-products-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: get-products-ms
+  template:
+    metadata:
+      labels:
+        app: get-products-ms
+    spec:
+      containers:
+        - name: get-products
+          image: itzmarlon13/get-ms:latest
+          ports:
+            - containerPort: 8080

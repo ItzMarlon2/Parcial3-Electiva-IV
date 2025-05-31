@@ -9,28 +9,28 @@ spec:
     - host: products.local
       http:
         paths:
-          - path: /get
+          - path: /get/products
             pathType: Prefix
             backend:
               service:
                 name: get-products-ms
                 port:
                   number: 80
-          - path: /post
+          - path: /post/products
             pathType: Prefix
             backend:
               service:
                 name: post-products-ms
                 port:
                   number: 80
-          - path: /patch
+          - path: /patch/products
             pathType: Prefix
             backend:
               service:
                 name: patch-products-ms
                 port:
                   number: 80
-          - path: /delete
+          - path: /delete/products
             pathType: Prefix
             backend:
               service:
