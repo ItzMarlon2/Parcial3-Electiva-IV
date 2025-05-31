@@ -13,9 +13,8 @@ El repositorio principal incluye los siguientes submódulos:
 
 Otros archivos importantes:
 - `docker-compose.yml`: Orquestación de servicios para desarrollo local.
-- `init.sql`: Script de inicialización para la base de datos MariaDB.
-- `Parcial3.pdf`: Instrucciones del parcial.
-- `TaskManager - Electiva V.postman_collection.json`: Colección de pruebas en Postman.
+- `backup-2025-05-31.sql`: Script de inicialización para la base de datos MariaDB.
+- `Parcial3-ElectivaIV.postman_collection`: Colección de pruebas en Postman.
 
 ## ⚙️ Tecnologías
 
