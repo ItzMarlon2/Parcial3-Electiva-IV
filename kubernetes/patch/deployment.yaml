@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patch-products-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patch-products-ms
+  template:
+    metadata:
+      labels:
+        app: patch-products-ms
+    spec:
+      containers:
+        - name: patch-products-ms
+          image: itzmarlon13/patch-products-ms
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SERVER_PORT
+              value: "8083"
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://mariadb:3306/productdb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secret
+                  key: password

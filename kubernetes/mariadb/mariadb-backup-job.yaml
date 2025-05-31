@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mariadb-backup
+spec:
+  template:
+    spec:
+      containers:
+        - name: mariadb-backup
+          image: mariadb:10.11
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              mysqldump -h mariadb -u root -p$MYSQL_ROOT_PASSWORD --all-databases > /backup/backup-$(date +%F).sql && sleep 300
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secret
+                  key: password
+          volumeMounts:
+            - name: backup-volume
+              mountPath: /backup
+      restartPolicy: Never
+      volumes:
+        - name: backup-volume
+          persistentVolumeClaim:
+            claimName: mariadb-backup-pvc
+  backoffLimit: 4

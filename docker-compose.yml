@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: productdb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+  get-products-ms:
+    image: itzmarlon13/get-products-ms
+    container_name: get-products-ms
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/productdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    ports:
+      - "8081:8081"
+    networks:
+      - backend
+
+  post-products-ms:
+    image: itzmarlon13/post-products-ms
+    container_name: post-products-ms
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/productdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    ports:
+      - "8082:8082"
+    networks:
+      - backend
+
+  
+  patch-products-ms:
+    image: itzmarlon13/patch-products-ms
+    container_name: patch-products-ms
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      SERVER_PORT: 8083
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/productdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    ports:
+      - "8083:8083"
+    networks:
+      - backend
+
+  
+  delete-products-ms:
+    image: itzmarlon13/delete-products-ms
+    container_name: delete-products-ms
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      SERVER_PORT: 8084
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/productdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    ports:
+      - "8084:8084"
+    networks:
+      - backend
+
+  
+
+
+volumes:
+  mariadb_data:
+
+networks:
+  backend:

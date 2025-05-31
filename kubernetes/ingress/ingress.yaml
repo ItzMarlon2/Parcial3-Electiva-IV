@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: products-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: products.local
+      http:
+        paths:
+          - path: /get
+            pathType: Prefix
+            backend:
+              service:
+                name: get-products-ms
+                port:
+                  number: 80
+          - path: /post
+            pathType: Prefix
+            backend:
+              service:
+                name: post-products-ms
+                port:
+                  number: 80
+          - path: /patch
+            pathType: Prefix
+            backend:
+              service:
+                name: patch-products-ms
+                port:
+                  number: 80
+          - path: /delete
+            pathType: Prefix
+            backend:
+              service:
+                name: delete-products-ms
+                port:
+                  number: 80

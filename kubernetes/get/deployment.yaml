@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: get-products-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: get-products-ms
+  template:
+    metadata:
+      labels:
+        app: get-products-ms
+    spec:
+      containers:
+        - name: get-products-ms
+          image: itzmarlon13/get-products-ms
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SERVER_PORT
+              value: "8081"
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mariadb://mariadb:3306/productdb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secret
+                  key: password
